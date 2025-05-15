@@ -24,6 +24,8 @@ namespace AuroraTrace.Domain.Entity
 
         private Moto(string placa, string modelo, StatusMoto status, Guid patioId, Guid localizacaoId, Guid? funcionarioId)
         {
+            ValidarPlaca(placa);
+
             Id = Guid.NewGuid();
             Placa = placa;
             Modelo = modelo ?? throw new DomainException("Modelo é obrigatório");
@@ -32,6 +34,17 @@ namespace AuroraTrace.Domain.Entity
             PatioId = patioId;
             LocalizacaoId = localizacaoId;
             FuncionarioId = funcionarioId;
+        }
+
+        private void ValidarPlaca(string placa)
+        {
+            if (string.IsNullOrWhiteSpace(placa))
+                throw new DomainException("Placa é obrigatória");
+
+            var regex = new Regex(@"^[A-Z]{3}\d{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$", RegexOptions.IgnoreCase);
+
+            if (!regex.IsMatch(placa))
+                throw new DomainException($"Placa inválida: {placa}");
         }
 
         internal static Moto Create(string placa, string modelo, StatusMoto status, Guid patioId, Guid localizacaoId, Guid? funcionarioId)
