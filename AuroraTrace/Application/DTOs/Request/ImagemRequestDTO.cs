@@ -3,8 +3,7 @@
     public class ImagemRequestDto
     {
         public string CaminhoArquivo { get; set; }
-        public Guid CameraId { get; set; }
-        public Guid? MotoId { get; set; }
+        public long CameraId { get; set; }
+        public long? MotoId { get; set; }
     }
-
 }

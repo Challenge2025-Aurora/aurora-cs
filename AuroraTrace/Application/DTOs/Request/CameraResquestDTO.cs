@@ -4,7 +4,6 @@
     {
         public string Nome { get; set; }
         public string Posicao { get; set; }
-        public Guid PatioId { get; set; }
+        public long PatioId { get; set; }
     }
-
 }

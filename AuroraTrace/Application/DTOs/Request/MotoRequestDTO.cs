@@ -5,9 +5,8 @@
         public string Placa { get; set; }
         public string Modelo { get; set; }
         public int Status { get; set; }
-        public Guid PatioId { get; set; }
-        public Guid LocalizacaoId { get; set; }
-        public Guid? FuncionarioId { get; set; }
+        public long PatioId { get; set; }
+        public long LocalizacaoId { get; set; }
+        public long? FuncionarioId { get; set; }
     }
-
 }
