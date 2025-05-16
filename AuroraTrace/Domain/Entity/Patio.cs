@@ -1,25 +1,28 @@
-﻿using AuroraTrace.Domain.Exceptions;
-
-public class Patio
+﻿namespace AuroraTrace.Domain.Entity
 {
-    public long Id { get; private set; }
-    public string Nome { get; private set; }
-    public string Endereco { get; private set; }
-    public string Cidade { get; private set; }
-    public double TamanhoMetros { get; private set; }
+    using AuroraTrace.Domain.Exceptions;
 
-    private Patio(string nome, string endereco, string cidade, double tamanhoMetros)
+    public class Patio
     {
-        Nome = nome ?? throw new DomainException("Nome é obrigatório");
-        Endereco = endereco ?? throw new DomainException("Endereço é obrigatório");
-        Cidade = cidade ?? throw new DomainException("Cidade é obrigatória");
-        TamanhoMetros = tamanhoMetros;
-    }
+        public long Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Endereco { get; private set; }
+        public string Cidade { get; private set; }
+        public double TamanhoMetros { get; private set; }
 
-    internal static Patio Create(string nome, string endereco, string cidade, double tamanhoMetros)
-    {
-        return new Patio(nome, endereco, cidade, tamanhoMetros);
-    }
+        private Patio(string nome, string endereco, string cidade, double tamanhoMetros)
+        {
+            Nome = nome ?? throw new DomainException("Nome é obrigatório");
+            Endereco = endereco ?? throw new DomainException("Endereço é obrigatório");
+            Cidade = cidade ?? throw new DomainException("Cidade é obrigatória");
+            TamanhoMetros = tamanhoMetros;
+        }
 
-    public Patio() { }
+        internal static Patio Create(string nome, string endereco, string cidade, double tamanhoMetros)
+        {
+            return new Patio(nome, endereco, cidade, tamanhoMetros);
+        }
+
+        public Patio() { }
+    }
 }

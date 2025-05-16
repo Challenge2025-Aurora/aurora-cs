@@ -1,33 +1,37 @@
-﻿using AuroraTrace.Domain.Entity;
-using AuroraTrace.Domain.Exceptions;
-
-public class Imagem
+﻿namespace AuroraTrace.Domain.Entity
 {
-    public long Id { get; private set; }
-    public string CaminhoArquivo { get; private set; }
-    public DateTime CapturadaEm { get; private set; }
+    using AuroraTrace.Domain.Entity;
+    using AuroraTrace.Domain.Exceptions;
 
-    public long CameraId { get; private set; }
-    public virtual Camera Camera { get; private set; }
-
-    public long? MotoId { get; private set; }
-    public virtual Moto? Moto { get; private set; }
-
-    private Imagem(string caminhoArquivo, long cameraId, long? motoId)
+    public class Imagem
     {
-        if (string.IsNullOrWhiteSpace(caminhoArquivo))
-            throw new DomainException("Caminho da imagem é obrigatório");
+        public long Id { get; private set; }
+        public string CaminhoArquivo { get; private set; }
+        public DateTime CapturadaEm { get; private set; }
 
-        CaminhoArquivo = caminhoArquivo;
-        CameraId = cameraId;
-        MotoId = motoId;
-        CapturadaEm = DateTime.UtcNow;
+        public long CameraId { get; private set; }
+        public virtual Camera Camera { get; private set; }
+
+        public long? MotoId { get; private set; }
+        public virtual Moto? Moto { get; private set; }
+
+        private Imagem(string caminhoArquivo, long cameraId, long? motoId)
+        {
+            if (string.IsNullOrWhiteSpace(caminhoArquivo))
+                throw new DomainException("Caminho da imagem é obrigatório");
+
+            CaminhoArquivo = caminhoArquivo;
+            CameraId = cameraId;
+            MotoId = motoId;
+            CapturadaEm = DateTime.UtcNow;
+        }
+
+        internal static Imagem Create(string caminhoArquivo, long cameraId, long? motoId)
+        {
+            return new Imagem(caminhoArquivo, cameraId, motoId);
+        }
+
+        public Imagem() { }
     }
 
-    internal static Imagem Create(string caminhoArquivo, long cameraId, long? motoId)
-    {
-        return new Imagem(caminhoArquivo, cameraId, motoId);
-    }
-
-    public Imagem() { }
 }

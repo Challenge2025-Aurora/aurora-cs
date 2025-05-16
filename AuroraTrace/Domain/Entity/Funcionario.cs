@@ -1,25 +1,28 @@
-﻿using AuroraTrace.Domain.Exceptions;
-
-public class Funcionario
+﻿namespace AuroraTrace.Domain.Entity
 {
-    public long Id { get; private set; }
-    public string Nome { get; private set; }
-    public string Matricula { get; private set; }
-    public string Cargo { get; private set; }
-    public string? Telefone { get; private set; }
+    using AuroraTrace.Domain.Exceptions;
 
-    private Funcionario(string nome, string matricula, string cargo, string? telefone)
+    public class Funcionario
     {
-        Nome = nome ?? throw new DomainException("Nome é obrigatório");
-        Matricula = matricula ?? throw new DomainException("Matrícula é obrigatória");
-        Cargo = cargo ?? throw new DomainException("Cargo é obrigatório");
-        Telefone = telefone;
-    }
+        public long Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Matricula { get; private set; }
+        public string Cargo { get; private set; }
+        public string? Telefone { get; private set; }
 
-    internal static Funcionario Create(string nome, string matricula, string cargo, string? telefone)
-    {
-        return new Funcionario(nome, matricula, cargo, telefone);
-    }
+        private Funcionario(string nome, string matricula, string cargo, string? telefone)
+        {
+            Nome = nome ?? throw new DomainException("Nome é obrigatório");
+            Matricula = matricula ?? throw new DomainException("Matrícula é obrigatória");
+            Cargo = cargo ?? throw new DomainException("Cargo é obrigatório");
+            Telefone = telefone;
+        }
 
-    public Funcionario() { }
+        internal static Funcionario Create(string nome, string matricula, string cargo, string? telefone)
+        {
+            return new Funcionario(nome, matricula, cargo, telefone);
+        }
+
+        public Funcionario() { }
+    }
 }
