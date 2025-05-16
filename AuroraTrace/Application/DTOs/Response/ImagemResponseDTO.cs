@@ -2,10 +2,8 @@
 {
     public class ImagemResponseDto
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public string CaminhoArquivo { get; set; }
         public DateTime CapturadaEm { get; set; }
     }
-
-
 }

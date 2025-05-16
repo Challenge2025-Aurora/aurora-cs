@@ -2,11 +2,10 @@
 {
     public class MotoResponseDto
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public string Placa { get; set; }
         public string Modelo { get; set; }
         public string Status { get; set; }
         public DateTime UltimaAtualizacao { get; set; }
     }
-
 }
