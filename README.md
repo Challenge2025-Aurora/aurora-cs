@@ -43,8 +43,8 @@ API para o Challenge de 2025, focando numa solução para rastreamento e monitor
 
 ## Integrantes
 
-- 1TDSPM - RM558876 - Samuel Damasceno
-- 1TDSPM - RM555174 - Felipe Menezes
-- 1TDS?? - RM558875 - Maria Eduarda
+- 2TDSPM - RM558876 - Samuel Damasceno
+- 2TDSPM - RM555174 - Felipe Menezes
+- 2TDSPZ - RM558976 - Maria Eduarda
 
 
