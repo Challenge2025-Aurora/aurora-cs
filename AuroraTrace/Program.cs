@@ -27,8 +27,12 @@ builder.Services.AddSwaggerGen(swagger =>
 });
 
 builder.Services.AddDbContext<AuroraTraceContext>(options =>
-    options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection"))
-           .UseLazyLoadingProxies());
+{
+    var connectionString = Environment.GetEnvironmentVariable("ORACLE_CONN");
+    options.UseOracle(connectionString)
+           .UseLazyLoadingProxies();
+});
+
 
 var app = builder.Build();
 
