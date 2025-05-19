@@ -35,11 +35,19 @@ API para o Challenge de 2025, focando numa solução para rastreamento e monitor
 
 ## Instruções de execução
 
-1. Configurar a connection string no arquivo `appsettings.json`
-2. Aplicar as migrations com o comando: `dotnet ef database update`
-3. Executar a aplicação: `dotnet run`
-4. Acessar a documentação via Swagger:  
-`https://localhost:5001/swagger`
+1. Configurar a variável de ambiente ORACLE_CONN com a string de conexão completa, no formato:
+Data Source=oracle.fiap.com.br:1521/orcl;User ID=usuario;Password=senha;
+
+2. Aplicar as migrations com o comando:
+dotnet ef database update
+
+3. Executar a aplicação:
+dotnet run
+
+4. Acessar a documentação com Swagger:
+https://localhost:5001/swagger
+
+> Obs: o projeto está configurado para buscar a string de conexão com a variável de ambiente ORACLE_CONN, em vez de armazená-la no appsettings.json, por segurança.
 
 ## Integrantes
 
