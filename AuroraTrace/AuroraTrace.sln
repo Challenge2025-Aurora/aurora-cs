@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraTrace", "AuroraTrace.csproj", "{315C3029-28FD-1485-73EE-9B282BB9951D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{315C3029-28FD-1485-73EE-9B282BB9951D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{315C3029-28FD-1485-73EE-9B282BB9951D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{315C3029-28FD-1485-73EE-9B282BB9951D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{315C3029-28FD-1485-73EE-9B282BB9951D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A2AE268-6A28-4E8D-9801-80C1DF9E32D1}
+	EndGlobalSection
+EndGlobal
