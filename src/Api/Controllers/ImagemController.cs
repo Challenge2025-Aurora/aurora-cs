@@ -1,26 +1,14 @@
-﻿using Domain.Entity;
-using Infrastructure.Context;
+﻿using Application.Services;
+using Domain.Entity;
+using Application.DTOs.Request;
+using Application.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class ImagemController : ControllerBase
+    public class ImagemController : BaseController<Imagem, ImagemRequestDto, ImagemResponseDto>
     {
-        private readonly AuroraTraceContext _context;
-
-        public ImagemController(AuroraTraceContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Imagem>>> GetAll()
-        {
-            var imagens = await _context.Imagens.ToListAsync();
-            return Ok(imagens);
-        }
+        public ImagemController(ImagemService service) : base(service) { }
     }
 }

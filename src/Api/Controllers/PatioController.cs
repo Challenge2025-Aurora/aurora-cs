@@ -1,26 +1,14 @@
-﻿using Domain.Entity;
-using Infrastructure.Context;
+﻿using Application.Services;
+using Domain.Entity;
+using Application.DTOs.Request;
+using Application.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class PatioController : ControllerBase
+    public class PatioController : BaseController<Patio, PatioRequestDto, PatioResponseDto>
     {
-        private readonly AuroraTraceContext _context;
-
-        public PatioController(AuroraTraceContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Patio>>> GetAll()
-        {
-            var patios = await _context.Patios.ToListAsync();
-            return Ok(patios);
-        }
+        public PatioController(PatioService service) : base(service) { }
     }
 }

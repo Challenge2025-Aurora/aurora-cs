@@ -8,7 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<Moto> builder)
         {
-            builder.ToTable("Motos");
+            builder.ToTable("AuroraMotos");
 
             builder.HasKey(m => m.Id);
 

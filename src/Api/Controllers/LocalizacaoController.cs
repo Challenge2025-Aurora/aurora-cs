@@ -1,26 +1,14 @@
-﻿using Domain.Entity;
-using Infrastructure.Context;
+﻿using Application.Services;
+using Domain.Entity;
+using Application.DTOs.Request;
+using Application.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class LocalizacaoController : ControllerBase
+    public class LocalizacaoController : BaseController<Localizacao, LocalizacaoRequestDto, LocalizacaoResponseDto>
     {
-        private readonly AuroraTraceContext _context;
-
-        public LocalizacaoController(AuroraTraceContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Localizacao>>> GetAll()
-        {
-            var localizacoes = await _context.Localizacoes.ToListAsync();
-            return Ok(localizacoes);
-        }
+        public LocalizacaoController(LocalizacaoService service) : base(service) { }
     }
 }

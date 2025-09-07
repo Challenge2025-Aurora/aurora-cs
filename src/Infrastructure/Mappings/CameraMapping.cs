@@ -8,7 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<Camera> builder)
         {
-            builder.ToTable("Cameras");
+            builder.ToTable("AuroraCameras");
 
             builder.HasKey(c => c.Id);
 

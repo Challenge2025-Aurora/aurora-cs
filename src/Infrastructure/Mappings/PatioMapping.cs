@@ -8,7 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<Patio> builder)
         {
-            builder.ToTable("Patios");
+            builder.ToTable("AuroraPatios");
 
             builder.HasKey(p => p.Id);
 

@@ -8,7 +8,7 @@ namespace Infrastructure.Mappings
     {
         public void Configure(EntityTypeBuilder<Funcionario> builder)
         {
-            builder.ToTable("Funcionarios");
+            builder.ToTable("AuroraFuncionarios");
 
             builder.HasKey(f => f.Id);
 

@@ -8,7 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<Imagem> builder)
         {
-            builder.ToTable("Imagens");
+            builder.ToTable("AuroraImagens");
 
             builder.HasKey(i => i.Id);
 

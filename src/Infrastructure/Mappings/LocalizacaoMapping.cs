@@ -8,7 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<Localizacao> builder)
         {
-            builder.ToTable("Localizacoes");
+            builder.ToTable("AuroraLocalizacoes");
 
             builder.HasKey(l => l.Id);
 

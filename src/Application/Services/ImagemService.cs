@@ -6,9 +6,9 @@ using Infrastructure.Context;
 
 namespace Application.Services
 {
-    public class MotoService : BaseService<Moto, MotoRequestDTO, MotoResponseDTO>
+    public class ImagemService : BaseService<Imagem, ImagemRequestDto, ImagemResponseDto>
     {
-        public MotoService(AuroraTraceContext context, IMapper mapper)
+        public ImagemService(AuroraTraceContext context, IMapper mapper)
             : base(context, mapper) { }
     }
 }
