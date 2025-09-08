@@ -19,10 +19,9 @@ public class Moto
     public long? FuncionarioId { get; private set; }
     public virtual Funcionario? Funcionario { get; private set; }
 
-    public long LocalizacaoId { get; private set; }
-    public virtual Localizacao Localizacao { get; private set; }
+    public Localizacao Localizacao { get; private set; }
 
-    private Moto(string placa, string modelo, StatusMoto status, long patioId, long localizacaoId, long? funcionarioId)
+    private Moto(string placa, string modelo, StatusMoto status, long patioId, Localizacao localizacao, long? funcionarioId)
     {
         ValidarPlaca(placa);
 
@@ -31,7 +30,7 @@ public class Moto
         Status = status;
         UltimaAtualizacao = DateTime.UtcNow;
         PatioId = patioId;
-        LocalizacaoId = localizacaoId;
+        Localizacao = localizacao ?? throw new DomainException("Localização é obrigatória"); // Recebe o objeto
         FuncionarioId = funcionarioId;
     }
 
@@ -45,9 +44,9 @@ public class Moto
             throw new DomainException($"Placa inválida: {placa}");
     }
 
-    internal static Moto Create(string placa, string modelo, StatusMoto status, long patioId, long localizacaoId, long? funcionarioId)
+    internal static Moto Create(string placa, string modelo, StatusMoto status, long patioId, Localizacao localizacao, long? funcionarioId)
     {
-        return new Moto(placa, modelo, status, patioId, localizacaoId, funcionarioId);
+        return new Moto(placa, modelo, status, patioId, localizacao, funcionarioId);
     }
 
     public Moto() { }

@@ -40,18 +40,21 @@
                    .HasForeignKey(m => m.FuncionarioId)
                    .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasOne(m => m.Localizacao)
-                   .WithMany()
-                   .HasForeignKey(m => m.LocalizacaoId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            builder.OwnsOne(m => m.Localizacao, localizacao =>
+            {
+                localizacao.Property(l => l.Latitude)
+                           .IsRequired()
+                           .HasColumnName("latitude");
+
+                localizacao.Property(l => l.Longitude)
+                           .IsRequired()
+                           .HasColumnName("longitude");
+            });
 
             builder.Metadata.FindNavigation(nameof(Moto.Patio))!
                    .SetPropertyAccessMode(PropertyAccessMode.Property);
 
             builder.Metadata.FindNavigation(nameof(Moto.Funcionario))!
-                   .SetPropertyAccessMode(PropertyAccessMode.Property);
-
-            builder.Metadata.FindNavigation(nameof(Moto.Localizacao))!
                    .SetPropertyAccessMode(PropertyAccessMode.Property);
         }
     }

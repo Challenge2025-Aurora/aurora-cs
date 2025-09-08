@@ -8,7 +8,7 @@
         public string Status { get; set; }
         public DateTime UltimaAtualizacao { get; set; }
         public long PatioId { get; set; }
-        public long LocalizacaoId { get; set; }
+        public Localizacao Localizacao { get; set; }
         public long? FuncionarioId { get; set; }
     }
 }

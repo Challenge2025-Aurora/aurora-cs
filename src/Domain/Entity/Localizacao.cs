@@ -1,25 +1,14 @@
-﻿namespace Domain.Entity;
-
-using Domain.Exceptions;
-
-public class Localizacao
+﻿public record Localizacao
 {
-    public long Id { get; private set; }
-    public double Latitude { get; private set; }
-    public double Longitude { get; private set; }
-    public DateTime RegistradaEm { get; private set; }
+    public double Latitude { get; init; }
+    public double Longitude { get; init; }
 
-    private Localizacao(double latitude, double longitude)
+    public Localizacao(double latitude, double longitude)
     {
+        if (latitude < -90 || latitude > 90)
+            throw new DomainException("Latitude inválida.");
+
         Latitude = latitude;
         Longitude = longitude;
-        RegistradaEm = DateTime.UtcNow;
     }
-
-    internal static Localizacao Create(double latitude, double longitude)
-    {
-        return new Localizacao(latitude, longitude);
-    }
-
-    public Localizacao() { }
 }
