@@ -30,7 +30,7 @@ public class Moto
         Status = status;
         UltimaAtualizacao = DateTime.UtcNow;
         PatioId = patioId;
-        Localizacao = localizacao ?? throw new DomainException("Localização é obrigatória"); // Recebe o objeto
+        Localizacao = localizacao ?? throw new DomainException("Localização é obrigatória");
         FuncionarioId = funcionarioId;
     }
 

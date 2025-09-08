@@ -1,4 +1,6 @@
-﻿public record Localizacao
+﻿using Domain.Exceptions;
+
+public record Localizacao
 {
     public double Latitude { get; init; }
     public double Longitude { get; init; }

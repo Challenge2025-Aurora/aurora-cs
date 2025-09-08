@@ -21,9 +21,6 @@ namespace Application.Services
             CreateMap<Patio, PatioResponseDto>();
             CreateMap<PatioRequestDto, Patio>();
 
-            CreateMap<Localizacao, LocalizacaoResponseDto>();
-            CreateMap<LocalizacaoRequestDto, Localizacao>();
-
             CreateMap<Imagem, ImagemResponseDto>();
             CreateMap<ImagemRequestDto, Imagem>();
         }

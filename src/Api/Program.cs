@@ -7,7 +7,10 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MappingProfile>();
+});
 
 builder.Services.AddControllers();
 
@@ -42,8 +45,19 @@ builder.Services.AddScoped<FuncionarioService>();
 builder.Services.AddScoped<MotoService>();
 builder.Services.AddScoped<CameraService>();
 builder.Services.AddScoped<PatioService>();
-builder.Services.AddScoped<LocalizacaoService>();
 builder.Services.AddScoped<ImagemService>();
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -51,8 +65,9 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuroraTrace API V1"));
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

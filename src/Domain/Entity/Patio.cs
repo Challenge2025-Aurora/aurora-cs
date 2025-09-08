@@ -1,6 +1,7 @@
 ﻿namespace Domain.Entity;
 
 using Domain.Exceptions;
+using Domain.Enum;
 
 public class Patio
 {
@@ -39,7 +40,7 @@ public class Patio
         if (_motos.Any(m => m.Placa == placa))
             throw new DomainException("Essa moto já está no pátio.");
 
-        var novaMoto = Moto.Create(placa, modelo, StatusMoto.Ativa, this.Id, loc.Id, null);
+        var novaMoto = Moto.Create(placa, modelo, StatusMoto.Ativa, this.Id, loc, null);
         _motos.Add(novaMoto);
     }
 
