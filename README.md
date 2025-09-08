@@ -1,29 +1,36 @@
 # AuroraTrace API
 
-API para o Challenge de 2025, focando numa solução para rastreamento e monitoramento de motos, com informações de localização, pátio, status e funcionário responsável.
+API para o Challenge de 2025, focada em rastreamento e gerenciamento de motos, funcionários e pátios. O projeto usa Clean Architecture, DDD e Boas Práticas de Clean Code em .NET 8.
 
-## Rotas disponíveis
+---
 
-### Motos
-- `GET /api/moto`
-- `GET /api/moto/{id}`
-- `GET /api/moto/porplaca?placa=ABC1234`
-- `POST /api/moto`
-- `PUT /api/moto/{id}`
-- `DELETE /api/moto/{id}`
+## Estrutura do Projeto
 
-### Funcionários
-- `GET /api/funcionario`
-- `GET /api/funcionario/{id}`
-- `POST /api/funcionario`
-- `PUT /api/funcionario/{id}`
-- `DELETE /api/funcionario/{id}`
+```plaintext
+📦 src
+ ┣ 📂 Api             -> controllers
+ ┣ 📂 Application     -> DTOs, services
+ ┣ 📂 Domain          -> entidades, exceptions
+ ┗ 📂 Infrastructure  -> mappings, migrations, conexão com banco de dados
+```
 
-### Apenas leitura
-- `GET /api/patio`
-- `GET /api/localizacao`
-- `GET /api/camera`
-- `GET /api/imagem`
+---
+
+- Entidades ricas: Moto e Patio com métodos e lógica de negócio.
+
+- Value Object: Localizacao incorporado às entidades.
+
+- Enum e exceção personalizada: StatusMoto e DomainException.
+
+- Classes base BaseService e BaseController para evitar repetição de código.
+
+- CRUD completo para motos, funcionários e pátios.
+
+- Migrations aplicadas usando variável de ambiente ORACLE_CONN.
+
+- Swagger configurado com todos os endpoints.
+
+---
 
 ## Tecnologias utilizadas
 
@@ -32,27 +39,50 @@ API para o Challenge de 2025, focando numa solução para rastreamento e monitor
 - Entity Framework Core
 - Oracle Database
 - Swagger
+- AutoMapper
 
-## Instruções de execução
+---
 
-1. Configurar a variável de ambiente ORACLE_CONN com a string de conexão completa, no formato:
-Data Source=oracle.fiap.com.br:1521/orcl;User ID=usuario;Password=senha;
+## Como executar
 
-2. Aplicar as migrations com o comando:
-dotnet ef database update
+1. Clonar o projeto:
 
-3. Executar a aplicação:
-dotnet run
+   ```
+   git clone https://github.com/samueldamasceno/challenge-2025-cs.git
+   ```
 
-4. Acessar a documentação com Swagger:
-https://localhost:5001/swagger
+2. Configurar a variável de ambiente ORACLE_CONN com a string de conexão:
+
+   ```
+   Data Source=oracle.fiap.com.br:1521/orcl;User ID=usuario;Password=senha
+   ```
+
+3. Aplicar migrations:
+
+   ```
+   cd src/Infrastructure
+   dotnet ef database update
+   ```
+
+4. Executar API:
+   ```
+   cd ../Api
+   dotnet run
+   ```
+
+5. Testar endpoints no Swagger:
+   ```
+   http://localhost:5002/swagger
+   ```
 
 > Obs: o projeto está configurado para buscar a string de conexão com a variável de ambiente ORACLE_CONN, em vez de armazená-la no appsettings.json, por segurança.
 
+---
+
 ## Integrantes
 
-- 2TDSPM - RM558876 - Samuel Damasceno
 - 2TDSPM - RM555174 - Felipe Menezes
 - 2TDSPZ - RM558976 - Maria Eduarda
+- 2TDSPM - RM558876 - Samuel Damasceno
 
 
