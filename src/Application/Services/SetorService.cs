@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Request;
+using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Domain.Entity;
 using AutoMapper;
@@ -6,9 +6,9 @@ using Infrastructure.Context;
 
 namespace Application.Services
 {
-    public class MotoService : BaseService<Moto, MotoRequestDto, MotoResponseDto>
+    public class SetorService : BaseService<Setor, SetorRequestDto, SetorResponseDto>
     {
-        public MotoService(AuroraTraceContext context, IMapper mapper)
+        public SetorService(AuroraTraceContext context, IMapper mapper)
             : base(context, mapper) { }
     }
 }

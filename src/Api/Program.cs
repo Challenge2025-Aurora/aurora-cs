@@ -41,11 +41,11 @@ builder.Services.AddDbContext<AuroraTraceContext>(options =>
     options.UseOracle(connectionString);
 });
 
-builder.Services.AddScoped<FuncionarioService>();
 builder.Services.AddScoped<MotoService>();
-builder.Services.AddScoped<CameraService>();
 builder.Services.AddScoped<PatioService>();
-builder.Services.AddScoped<ImagemService>();
+builder.Services.AddScoped<SetorService>();
+builder.Services.AddScoped<EventoService>();
+builder.Services.AddScoped<DeteccaoService>();
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
@@ -65,9 +65,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuroraTrace API V1"));
 
 app.UseHttpsRedirection();
-
 app.UseCors(MyAllowSpecificOrigins);
-
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

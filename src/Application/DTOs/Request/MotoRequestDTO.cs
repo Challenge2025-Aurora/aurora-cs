@@ -1,12 +1,13 @@
-﻿namespace Application.DTOs.Request
+﻿using Domain.Enum;
+
+namespace Application.DTOs.Request
 {
-    public class MotoRequestDTO
+    public class MotoRequestDto
     {
         public string Placa { get; set; }
         public string Modelo { get; set; }
-        public string Status { get; set; }
-        public long PatioId { get; set; }
-        public Localizacao Localizacao { get; set; }
-        public long? FuncionarioId { get; set; }
+        public StatusMoto Status { get; set; }
+        public string? UltimoSetor { get; set; }
+        public string? UltimoSlot { get; set; }
     }
 }

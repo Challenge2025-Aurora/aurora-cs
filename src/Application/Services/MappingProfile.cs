@@ -9,20 +9,20 @@ namespace Application.Services
     {
         public MappingProfile()
         {
-            CreateMap<Funcionario, FuncionarioResponseDto>();
-            CreateMap<FuncionarioRequestDto, Funcionario>();
-
-            CreateMap<Moto, MotoResponseDTO>();
-            CreateMap<MotoRequestDTO, Moto>();
-
-            CreateMap<Camera, CameraResponseDto>();
-            CreateMap<CameraRequestDto, Camera>();
+            CreateMap<Moto, MotoResponseDto>();
+            CreateMap<MotoRequestDto, Moto>();
 
             CreateMap<Patio, PatioResponseDto>();
             CreateMap<PatioRequestDto, Patio>();
 
-            CreateMap<Imagem, ImagemResponseDto>();
-            CreateMap<ImagemRequestDto, Imagem>();
+            CreateMap<Setor, SetorResponseDto>();
+            CreateMap<SetorRequestDto, Setor>();
+
+            CreateMap<Evento, EventoResponseDto>();
+            CreateMap<EventoRequestDto, Evento>();
+
+            CreateMap<Deteccao, DeteccaoResponseDto>();
+            CreateMap<DeteccaoRequestDto, Deteccao>();
         }
     }
 }

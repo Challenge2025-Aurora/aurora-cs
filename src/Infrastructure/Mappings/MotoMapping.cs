@@ -1,9 +1,9 @@
-﻿namespace Infrastructure.Mappings
-{
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Domain.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Domain.Entity;
 
+namespace Infrastructure.Mappings
+{
     public class MotoMapping : IEntityTypeConfiguration<Moto>
     {
         public void Configure(EntityTypeBuilder<Moto> builder)
@@ -24,38 +24,20 @@
 
             builder.Property(m => m.Status)
                    .IsRequired()
+                   .HasConversion<string>()
                    .HasColumnName("status");
 
-            builder.Property(m => m.UltimaAtualizacao)
+            builder.Property(m => m.AtualizadoEm)
                    .IsRequired()
-                   .HasColumnName("ultima_atualizacao");
+                   .HasColumnName("atualizado_em");
 
-            builder.HasOne(m => m.Patio)
-                   .WithMany()
-                   .HasForeignKey(m => m.PatioId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(m => m.UltimoSetor)
+                   .HasMaxLength(10)
+                   .HasColumnName("ultimo_setor");
 
-            builder.HasOne(m => m.Funcionario)
-                   .WithMany()
-                   .HasForeignKey(m => m.FuncionarioId)
-                   .OnDelete(DeleteBehavior.SetNull);
-
-            builder.OwnsOne(m => m.Localizacao, localizacao =>
-            {
-                localizacao.Property(l => l.Latitude)
-                           .IsRequired()
-                           .HasColumnName("latitude");
-
-                localizacao.Property(l => l.Longitude)
-                           .IsRequired()
-                           .HasColumnName("longitude");
-            });
-
-            builder.Metadata.FindNavigation(nameof(Moto.Patio))!
-                   .SetPropertyAccessMode(PropertyAccessMode.Property);
-
-            builder.Metadata.FindNavigation(nameof(Moto.Funcionario))!
-                   .SetPropertyAccessMode(PropertyAccessMode.Property);
+            builder.Property(m => m.UltimoSlot)
+                   .HasMaxLength(10)
+                   .HasColumnName("ultimo_slot");
         }
     }
 }
