@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Application.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -10,5 +11,7 @@ namespace Application.Services
         Task<TResponseDto> CreateAsync(TRequestDto dto);
         Task<TResponseDto> UpdateAsync(long id, TRequestDto dto);
         Task DeleteAsync(long id);
+        Task<PaginatedResult<TResponseDto>> GetPaginatedAsync(int pageIndex, int pageSize);
+
     }
 }

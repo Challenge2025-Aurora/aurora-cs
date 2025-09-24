@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.DTOs;
 using AutoMapper;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,28 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IService<TEntity,
     {
         var entities = await _context.Set<TEntity>().ToListAsync();
         return _mapper.Map<IEnumerable<TResponseDto>>(entities);
+    }
+
+    public async Task<PaginatedResult<TResponseDto>> GetPaginatedAsync(int pageIndex, int pageSize)
+    {
+        var query = _context.Set<TEntity>().AsQueryable();
+
+        var totalItems = await query.CountAsync();
+
+        var items = await query
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        var itemsDto = _mapper.Map<IEnumerable<TResponseDto>>(items);
+
+        return new PaginatedResult<TResponseDto>
+        {
+            Items = itemsDto,
+            TotalItems = totalItems,
+            PageIndex = pageIndex,
+            PageSize = pageSize
+        };
     }
 
     public async Task<TResponseDto> GetByIdAsync(long id)

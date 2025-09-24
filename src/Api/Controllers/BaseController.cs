@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTOs;
 using Application.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
@@ -18,11 +19,14 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TResponseDto>>> GetAll()
+        public async Task<ActionResult<PaginatedResult<TResponseDto>>> GetAll(
+            [FromQuery] int pageIndex = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var result = await _service.GetAllAsync();
+            var result = await _service.GetPaginatedAsync(pageIndex, pageSize);
             return Ok(result);
         }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TResponseDto>> GetById(long id)
