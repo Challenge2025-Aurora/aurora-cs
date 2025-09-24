@@ -1,4 +1,6 @@
+using Application.DTOs;
 using System;
+using System.Collections.Generic;
 
 namespace Application.DTOs.Response
 {
@@ -10,5 +12,7 @@ namespace Application.DTOs.Response
         public DateTime CriadoEm { get; set; }
 
         public long MotoId { get; set; }
+
+        public List<LinkDto> Links { get; set; } = new();
     }
 }

@@ -24,9 +24,14 @@ namespace Api.Controllers
             [FromQuery] int pageSize = 10)
         {
             var result = await _service.GetPaginatedAsync(pageIndex, pageSize);
+
+            foreach (var item in result.Items)
+            {
+                TryAddLinks(item);
+            }
+
             return Ok(result);
         }
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TResponseDto>> GetById(long id)
@@ -34,6 +39,7 @@ namespace Api.Controllers
             try
             {
                 var result = await _service.GetByIdAsync(id);
+                TryAddLinks(result, id);
                 return Ok(result);
             }
             catch (Domain.Exceptions.DomainException)
@@ -48,6 +54,10 @@ namespace Api.Controllers
             try
             {
                 var created = await _service.CreateAsync(dto);
+
+                if (created is not null)
+                    TryAddLinks(created, (created as dynamic).Id);
+
                 return CreatedAtAction(nameof(GetById), new { id = (created as dynamic).Id }, created);
             }
             catch (ArgumentException e)
@@ -62,6 +72,7 @@ namespace Api.Controllers
             try
             {
                 var updated = await _service.UpdateAsync(id, dto);
+                TryAddLinks(updated, id);
                 return Ok(updated);
             }
             catch (Domain.Exceptions.DomainException)
@@ -85,6 +96,31 @@ namespace Api.Controllers
             catch (Domain.Exceptions.DomainException)
             {
                 return NotFound();
+            }
+        }
+
+        protected List<LinkDto> GenerateLinks(long id)
+        {
+            var entityName = typeof(TEntity).Name.ToLower();
+            return new List<LinkDto>
+            {
+                new LinkDto($"/api/{entityName}s/{id}", "self", "GET"),
+                new LinkDto($"/api/{entityName}s/{id}", "update", "PUT"),
+                new LinkDto($"/api/{entityName}s/{id}", "delete", "DELETE")
+            };
+        }
+
+        private void TryAddLinks(object dto, long? id = null)
+        {
+            if (dto is null) return;
+
+            var dtoType = dto.GetType();
+            var linksProp = dtoType.GetProperty("Links");
+
+            if (linksProp != null && linksProp.PropertyType == typeof(List<LinkDto>))
+            {
+                var resolvedId = id ?? (long)(dtoType.GetProperty("Id")?.GetValue(dto) ?? 0);
+                linksProp.SetValue(dto, GenerateLinks(resolvedId));
             }
         }
     }

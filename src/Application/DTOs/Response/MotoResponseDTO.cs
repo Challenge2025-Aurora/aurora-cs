@@ -1,4 +1,7 @@
-﻿using Domain.Enum;
+﻿using Application.DTOs;
+using Domain.Enum;
+using System;
+using System.Collections.Generic;
 
 namespace Application.DTOs.Response
 {
@@ -12,5 +15,7 @@ namespace Application.DTOs.Response
 
         public string? UltimoSetor { get; set; }
         public string? UltimoSlot { get; set; }
+
+        public List<LinkDto> Links { get; set; } = new();
     }
 }
