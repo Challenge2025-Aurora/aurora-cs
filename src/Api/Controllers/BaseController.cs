@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    /// <summary>
+    /// Controlador base genérico para operações CRUD (Create, Read, Update, Delete) com paginação e links HATEOAS.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class BaseController<TEntity, TRequestDto, TResponseDto> : ControllerBase
@@ -18,7 +21,13 @@ namespace Api.Controllers
             _service = service;
         }
 
+        /// <summary>
+        /// Retorna todos os recursos paginados.
+        /// </summary>
+        /// <param name="pageIndex">O número da página a ser retornada (padrão é 1).</param>
+        /// <param name="pageSize">O número de itens por página (padrão é 10).</param>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PaginatedResult<TResponseDto>>> GetAll(
             [FromQuery] int pageIndex = 1,
             [FromQuery] int pageSize = 10)
@@ -33,7 +42,13 @@ namespace Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Retorna um recurso pelo ID.
+        /// </summary>
+        /// <param name="id">O ID do recurso.</param>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TResponseDto>> GetById(long id)
         {
             try
@@ -48,7 +63,13 @@ namespace Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Cria um novo recurso.
+        /// </summary>
+        /// <param name="dto">O objeto de requisição com os dados para criação.</param>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TResponseDto>> Create([FromBody] TRequestDto dto)
         {
             try
@@ -66,7 +87,15 @@ namespace Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Atualiza um recurso existente pelo ID.
+        /// </summary>
+        /// <param name="id">O ID do recurso a ser atualizado.</param>
+        /// <param name="dto">O objeto de requisição com os novos dados.</param>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TResponseDto>> Update(long id, [FromBody] TRequestDto dto)
         {
             try
@@ -85,7 +114,13 @@ namespace Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Remove um recurso pelo ID.
+        /// </summary>
+        /// <param name="id">O ID do recurso a ser deletado.</param>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete(long id)
         {
             try

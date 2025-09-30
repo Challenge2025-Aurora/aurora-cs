@@ -2,14 +2,16 @@
 
 using Domain.Exceptions;
 using Domain.Enum;
+using System;
 
 public class Moto
 {
     public long Id { get; private set; }
-    public string Placa { get; private set; }
-    public string Modelo { get; private set; }
+    public string Placa { get; private set; } = null!;
+    public string Modelo { get; private set; } = null!;
     public StatusMoto Status { get; private set; }
     public DateTime AtualizadoEm { get; private set; }
+    public DateTime DataCadastro { get; private set; }
 
     public string? UltimoSetor { get; private set; }
     public string? UltimoSlot { get; private set; }
@@ -25,6 +27,7 @@ public class Moto
         Modelo = modelo;
         Status = status;
         AtualizadoEm = DateTime.UtcNow;
+        DataCadastro = DateTime.UtcNow;
         UltimoSetor = setor;
         UltimoSlot = slot;
     }

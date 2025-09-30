@@ -1,11 +1,12 @@
 ﻿namespace Domain.Entity;
 
 using Domain.Exceptions;
+using System.Collections.Generic;
 
 public class Patio
 {
     public long Id { get; private set; }
-    public string Nome { get; private set; }
+    public string Nome { get; private set; } = null!;
     public int Cols { get; private set; }
     public int Rows { get; private set; }
 

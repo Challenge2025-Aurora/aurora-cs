@@ -5,11 +5,11 @@ using Domain.Exceptions;
 public class Setor
 {
     public long Id { get; private set; }
-    public string Nome { get; private set; }
+    public string Nome { get; private set; } = null!;
     public int Slots { get; private set; }
 
     public long PatioId { get; private set; }
-    public virtual Patio Patio { get; private set; }
+    public virtual Patio Patio { get; private set; } = null!;
 
     private Setor(string nome, int slots, long patioId)
     {
