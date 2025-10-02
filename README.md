@@ -62,7 +62,7 @@ O projeto segue Clean Architecture e Domain Driven Design), separando as respons
 1. Clonar o projeto:
 
    ```bash
-   git clone https://github.com/samueldamasceno/challenge-2025-cs.git
+   git clone https://github.com/Challenge2025-Aurora/aurora-cs.git
    ```
 
 2. Aplicar migrations (Obrigatório para Criar/Atualizar as Tabelas):
