@@ -11,6 +11,7 @@ using MongoDB.Driver;
 using Domain.Repositories;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
+using Infrastructure.Mongo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,8 @@ builder.Services.AddScoped<PatioService>();
 builder.Services.AddScoped<SetorService>();
 builder.Services.AddScoped<EventoService>();
 builder.Services.AddScoped<DeteccaoService>();
+
+builder.Services.AddHostedService<MongoSetup>();
 
 var app = builder.Build();
 
