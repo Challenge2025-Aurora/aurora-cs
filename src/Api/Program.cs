@@ -28,18 +28,20 @@ builder.Services.AddSwaggerGen(swagger =>
         }
     });
 
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    if (File.Exists(xmlPath))
-        swagger.IncludeXmlComments(xmlPath);
+    try
+    {
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        if (File.Exists(xmlPath))
+            swagger.IncludeXmlComments(xmlPath);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[Swagger XML Warning] Não foi possível carregar comentários XML: {ex.Message}");
+    }
 });
 
-builder.Services.AddDbContext<AuroraTraceContext>(options =>
-{
-    var connectionString = Environment.GetEnvironmentVariable("ORACLE_CONN")
-                           ?? builder.Configuration.GetConnectionString("Oracle");
-    options.UseOracle(connectionString);
-});
+builder.Services.AddSingleton<AuroraMongoContext>();
 
 builder.Services.AddScoped<MotoService>();
 builder.Services.AddScoped<PatioService>();
@@ -59,7 +61,12 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddHealthChecks()
+    .AddMongoDb(builder.Configuration.GetConnectionString("MongoDB"), name: "mongodb");
+
 var app = builder.Build();
+
+app.MapHealthChecks("/health");
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuroraTrace API V1"));
