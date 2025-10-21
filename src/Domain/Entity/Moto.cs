@@ -5,9 +5,15 @@ using Domain.Enum;
 using Domain.ValueObject;
 using System;
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 public class Moto
 {
-    public long Id { get; private set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? Id { get; set; }
+
     public Placa Placa { get; private set; } = null!;
     public string Modelo { get; private set; } = null!;
     public StatusMoto Status { get; private set; }

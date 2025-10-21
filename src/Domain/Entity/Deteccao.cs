@@ -3,9 +3,15 @@ namespace Domain.Entity;
 using Domain.Exceptions;
 using System;
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 public class Deteccao
 {
-    public long Id { get; private set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? Id { get; set; }
+
     public string? Placa { get; private set; }
     public string? ModeloProb { get; private set; }
     public double Confianca { get; private set; }

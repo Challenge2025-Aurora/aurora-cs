@@ -2,7 +2,7 @@
 {
     public class PatioResponseDto
     {
-        public long Id { get; set; }
+        public string Id { get; set; } = default!;
         public string Nome { get; set; }
         public int Cols { get; set; }
         public int Rows { get; set; }

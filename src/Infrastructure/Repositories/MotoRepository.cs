@@ -14,19 +14,22 @@ namespace Infrastructure.Repositories
             _collection = context.Motos;
         }
 
-        public async Task<List<Moto>> GetAllAsync()
-            => await _collection.Find(_ => true).ToListAsync();
+        public Task<List<Moto>> GetAllAsync()
+            => _collection.Find(FilterDefinition<Moto>.Empty).ToListAsync();
 
-        public async Task<Moto?> GetByIdAsync(string id)
-            => await _collection.Find(m => m.Id.ToString() == id).FirstOrDefaultAsync();
+        public Task<Moto?> GetByIdAsync(string id)
+            => _collection.Find(m => m.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Moto moto)
-            => await _collection.InsertOneAsync(moto);
+        public Task CreateAsync(Moto moto)
+            => _collection.InsertOneAsync(moto);
 
-        public async Task UpdateAsync(string id, Moto moto)
-            => await _collection.ReplaceOneAsync(m => m.Id.ToString() == id, moto);
+        public Task UpdateAsync(string id, Moto moto)
+        {
+            moto.GetType().GetProperty("Id")?.SetValue(moto, id);
+            return _collection.ReplaceOneAsync(m => m.Id == id, moto);
+        }
 
-        public async Task DeleteAsync(string id)
-            => await _collection.DeleteOneAsync(m => m.Id.ToString() == id);
+        public Task DeleteAsync(string id)
+            => _collection.DeleteOneAsync(m => m.Id == id);
     }
 }

@@ -22,16 +22,19 @@ namespace Infrastructure.Repositories
         public async Task<List<Patio>> GetAllAsync()
             => await _collection.Find(_ => true).ToListAsync();
 
-        public async Task<Patio?> GetByIdAsync(string id)
-            => await _collection.Find(p => p.Id.ToString() == id).FirstOrDefaultAsync();
+        public Task<Patio?> GetByIdAsync(string id)
+            => _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Patio patio)
-            => await _collection.InsertOneAsync(patio);
+        public Task CreateAsync(Patio x)
+            => _collection.InsertOneAsync(x);
 
-        public async Task UpdateAsync(string id, Patio patio)
-            => await _collection.ReplaceOneAsync(p => p.Id.ToString() == id, patio);
+        public Task UpdateAsync(string id, Patio x)
+        {
+            x.Id = id;
+            return _collection.ReplaceOneAsync(d => d.Id == id, x);
+        }
 
-        public async Task DeleteAsync(string id)
-            => await _collection.DeleteOneAsync(p => p.Id.ToString() == id);
+        public Task DeleteAsync(string id)
+            => _collection.DeleteOneAsync(d => d.Id == id);
     }
 }

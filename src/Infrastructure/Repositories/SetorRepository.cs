@@ -21,17 +21,19 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Setor>> GetAllAsync()
             => await _collection.Find(_ => true).ToListAsync();
+        public Task<Setor?> GetByIdAsync(string id)
+            => _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task<Setor?> GetByIdAsync(string id)
-            => await _collection.Find(s => s.Id.ToString() == id).FirstOrDefaultAsync();
+        public Task CreateAsync(Setor x)
+            => _collection.InsertOneAsync(x);
 
-        public async Task CreateAsync(Setor setor)
-            => await _collection.InsertOneAsync(setor);
+        public Task UpdateAsync(string id, Setor x)
+        {
+            x.Id = id;
+            return _collection.ReplaceOneAsync(d => d.Id == id, x);
+        }
 
-        public async Task UpdateAsync(string id, Setor setor)
-            => await _collection.ReplaceOneAsync(s => s.Id.ToString() == id, setor);
-
-        public async Task DeleteAsync(string id)
-            => await _collection.DeleteOneAsync(s => s.Id.ToString() == id);
+        public Task DeleteAsync(string id)
+            => _collection.DeleteOneAsync(d => d.Id == id);
     }
 }

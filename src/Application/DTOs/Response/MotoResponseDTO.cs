@@ -7,7 +7,7 @@ namespace Application.DTOs.Response
 {
     public class MotoResponseDto
     {
-        public long Id { get; set; }
+        public string Id { get; set; } = default!;
         public string Placa { get; set; }
         public string Modelo { get; set; }
         public StatusMoto Status { get; set; }

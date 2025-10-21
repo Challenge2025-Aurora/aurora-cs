@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
 using Domain.ValueObject;
+using System.Numerics;
 
 namespace Application.Services
 {
@@ -30,7 +31,7 @@ namespace Application.Services
             return moto is null ? null : _mapper.Map<MotoResponseDto>(moto);
         }
 
-        public async Task<MotoResponseDto> CreateAsync(MotoRequestDto dto)
+        public async Task<MotoResponseDto?> UpdateAsync(string id, MotoRequestDto dto)
         {
             var moto = Moto.Create(
                 new Placa(dto.Placa),
@@ -40,9 +41,12 @@ namespace Application.Services
                 dto.UltimoSlot
             );
 
-            await _repo.CreateAsync(moto);
+            moto.Id = id;
+
+            await _repo.UpdateAsync(id, moto);
             return _mapper.Map<MotoResponseDto>(moto);
         }
+
 
         public async Task<MotoResponseDto?> UpdateAsync(string id, MotoRequestDto dto)
         {
@@ -54,9 +58,12 @@ namespace Application.Services
                 dto.UltimoSlot
             );
 
+            moto.Id = id;
+
             await _repo.UpdateAsync(id, moto);
             return _mapper.Map<MotoResponseDto>(moto);
         }
+
 
         public async Task DeleteAsync(string id)
         {

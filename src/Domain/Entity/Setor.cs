@@ -2,9 +2,15 @@ namespace Domain.Entity;
 
 using Domain.Exceptions;
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 public class Setor
 {
-    public long Id { get; private set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? Id { get; set; }
+
     public string Nome { get; private set; } = null!;
     public int Slots { get; private set; }
 

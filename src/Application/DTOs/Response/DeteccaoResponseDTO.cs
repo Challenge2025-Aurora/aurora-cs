@@ -2,7 +2,7 @@ namespace Application.DTOs.Response
 {
     public class DeteccaoResponseDto
     {
-        public long Id { get; set; }
+        public string Id { get; set; } = default!;
         public string? Placa { get; set; }
         public string? ModeloProb { get; set; }
         public double Confianca { get; set; }

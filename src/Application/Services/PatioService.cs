@@ -39,6 +39,7 @@ namespace Application.Services
         public async Task<PatioResponseDto?> UpdateAsync(string id, PatioRequestDto dto)
         {
             var patio = _mapper.Map<Patio>(dto);
+            patio.Id = id;
             await _repo.UpdateAsync(id, patio);
             return _mapper.Map<PatioResponseDto>(patio);
         }

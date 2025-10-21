@@ -3,9 +3,15 @@
 using Domain.Exceptions;
 using System.Collections.Generic;
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 public class Patio
 {
-    public long Id { get; private set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? Id { get; set; }
+
     public string Nome { get; private set; } = null!;
     public int Cols { get; private set; }
     public int Rows { get; private set; }

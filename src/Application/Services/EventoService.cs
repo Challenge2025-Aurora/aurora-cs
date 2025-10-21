@@ -39,6 +39,7 @@ namespace Application.Services
         public async Task<EventoResponseDto?> UpdateAsync(string id, EventoRequestDto dto)
         {
             var evento = _mapper.Map<Evento>(dto);
+            evento.Id = id;
             await _repo.UpdateAsync(id, evento);
             return _mapper.Map<EventoResponseDto>(evento);
         }

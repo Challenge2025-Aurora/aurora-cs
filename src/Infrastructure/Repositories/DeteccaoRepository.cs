@@ -22,16 +22,20 @@ namespace Infrastructure.Repositories
         public async Task<List<Deteccao>> GetAllAsync()
             => await _collection.Find(_ => true).ToListAsync();
 
-        public async Task<Deteccao?> GetByIdAsync(string id)
-            => await _collection.Find(d => d.Id.ToString() == id).FirstOrDefaultAsync();
+        public Task<Deteccao?> GetByIdAsync(string id)
+            => _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Deteccao deteccao)
-            => await _collection.InsertOneAsync(deteccao);
+        public Task CreateAsync(Deteccao x)
+            => _collection.InsertOneAsync(x);
 
-        public async Task UpdateAsync(string id, Deteccao deteccao)
-            => await _collection.ReplaceOneAsync(d => d.Id.ToString() == id, deteccao);
+        public Task UpdateAsync(string id, Deteccao x)
+        {
+            x.Id = id;
+            return _collection.ReplaceOneAsync(d => d.Id == id, x);
+        }
 
-        public async Task DeleteAsync(string id)
-            => await _collection.DeleteOneAsync(d => d.Id.ToString() == id);
-    }
+        public Task DeleteAsync(string id)
+            => _collection.DeleteOneAsync(d => d.Id == id);
+
+    }  
 }

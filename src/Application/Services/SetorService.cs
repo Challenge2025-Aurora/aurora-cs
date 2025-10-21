@@ -39,6 +39,7 @@ namespace Application.Services
         public async Task<SetorResponseDto?> UpdateAsync(string id, SetorRequestDto dto)
         {
             var setor = _mapper.Map<Setor>(dto);
+            setor.Id = id;
             await _repo.UpdateAsync(id, setor);
             return _mapper.Map<SetorResponseDto>(setor);
         }

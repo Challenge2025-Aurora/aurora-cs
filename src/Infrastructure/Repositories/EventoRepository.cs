@@ -22,16 +22,20 @@ namespace Infrastructure.Repositories
         public async Task<List<Evento>> GetAllAsync()
             => await _collection.Find(_ => true).ToListAsync();
 
-        public async Task<Evento?> GetByIdAsync(string id)
-            => await _collection.Find(e => e.Id.ToString() == id).FirstOrDefaultAsync();
+        public Task<Evento?> GetByIdAsync(string id)
+            => _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Evento evento)
-            => await _collection.InsertOneAsync(evento);
+        public Task CreateAsync(Evento x)
+            => _collection.InsertOneAsync(x);
 
-        public async Task UpdateAsync(string id, Evento evento)
-            => await _collection.ReplaceOneAsync(e => e.Id.ToString() == id, evento);
+        public Task UpdateAsync(string id, Evento x)
+        {
+            x.Id = id;
+            return _collection.ReplaceOneAsync(d => d.Id == id, x);
+        }
 
-        public async Task DeleteAsync(string id)
-            => await _collection.DeleteOneAsync(e => e.Id.ToString() == id);
+        public Task DeleteAsync(string id)
+            => _collection.DeleteOneAsync(d => d.Id == id);
+
     }
 }
