@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
 [Route("api/[controller]")]
 [SwaggerTag("Pátios", "Gerencia os pátios utilizados na operação da Mottu.")]
 public class PatioController : ControllerBase

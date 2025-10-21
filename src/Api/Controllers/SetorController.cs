@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
 [Route("api/[controller]")]
 [SwaggerTag("Setores", "Gerencia os setores dos pátios, onde as motos são posicionadas.")]
 public class SetorController : ControllerBase

@@ -7,6 +7,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Api.Controllers
 {
     [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/[controller]")]
     [SwaggerTag("Detecções", "Gerencia os registros de detecção de motos capturados por visão computacional ou sensores.")]
     public class DeteccaoController : ControllerBase
