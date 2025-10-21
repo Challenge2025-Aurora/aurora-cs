@@ -1,17 +1,69 @@
-using Application.Services;
-using Domain.Entity;
 using Application.DTOs.Request;
 using Application.DTOs.Response;
+using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Api.Controllers
+[ApiController]
+[Route("api/[controller]")]
+[SwaggerTag("Eventos", "Gerencia os eventos gerados no sistema, como movimentações e registros de atividades.")]
+public class EventoController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [SwaggerTag("Eventos", "Registra a linha do tempo de operações, status e movimentações das motos.")]
-    public class EventoController : BaseController<Evento, EventoRequestDto, EventoResponseDto>
+    private readonly EventoService _service;
+
+    public EventoController(EventoService service)
     {
-        public EventoController(EventoService service) : base(service) { }
+        _service = service;
+    }
+
+    [HttpGet]
+    [SwaggerOperation(Summary = "Listar eventos", Description = "Retorna todos os eventos registrados no sistema.")]
+    [ProducesResponseType(typeof(List<EventoResponseDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<EventoResponseDto>>> GetAll()
+    {
+        var result = await _service.GetAllAsync();
+        return Ok(result);
+    }
+
+    [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Obter evento por ID", Description = "Retorna um evento específico pelo seu ID.")]
+    [ProducesResponseType(typeof(EventoResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<EventoResponseDto>> GetById(string id)
+    {
+        var result = await _service.GetByIdAsync(id);
+        return result is null ? NotFound() : Ok(result);
+    }
+
+    [HttpPost]
+    [SwaggerOperation(Summary = "Criar evento", Description = "Registra um novo evento no sistema.")]
+    [ProducesResponseType(typeof(EventoResponseDto), StatusCodes.Status201Created)]
+    public async Task<ActionResult<EventoResponseDto>> Create([FromBody] EventoRequestDto dto)
+    {
+        var created = await _service.CreateAsync(dto);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    [HttpPut("{id}")]
+    [SwaggerOperation(Summary = "Atualizar evento", Description = "Atualiza os dados de um evento existente.")]
+    [ProducesResponseType(typeof(EventoResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<EventoResponseDto>> Update(string id, [FromBody] EventoRequestDto dto)
+    {
+        var updated = await _service.UpdateAsync(id, dto);
+        return updated is null ? NotFound() : Ok(updated);
+    }
+
+    [HttpDelete("{id}")]
+    [SwaggerOperation(Summary = "Deletar evento", Description = "Remove um evento do sistema.")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> Delete(string id)
+    {
+        var found = await _service.GetByIdAsync(id);
+        if (found is null) return NotFound();
+
+        await _service.DeleteAsync(id);
+        return NoContent();
     }
 }
