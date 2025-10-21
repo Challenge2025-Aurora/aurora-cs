@@ -19,6 +19,20 @@ namespace Application.Services
             _mapper = mapper;
         }
 
+        public async Task<MotoResponseDto> CreateAsync(MotoRequestDto dto)
+        {
+            var moto = Moto.Create(
+                new Placa(dto.Placa),
+                dto.Modelo,
+                dto.Status,
+                dto.UltimoSetor,
+                dto.UltimoSlot
+            );
+
+            await _repo.CreateAsync(moto);
+            return _mapper.Map<MotoResponseDto>(moto);
+        }
+
         public async Task<List<MotoResponseDto>> GetAllAsync()
         {
             var motos = await _repo.GetAllAsync();
@@ -46,24 +60,6 @@ namespace Application.Services
             await _repo.UpdateAsync(id, moto);
             return _mapper.Map<MotoResponseDto>(moto);
         }
-
-
-        public async Task<MotoResponseDto?> UpdateAsync(string id, MotoRequestDto dto)
-        {
-            var moto = Moto.Create(
-                new Placa(dto.Placa),
-                dto.Modelo,
-                dto.Status,
-                dto.UltimoSetor,
-                dto.UltimoSlot
-            );
-
-            moto.Id = id;
-
-            await _repo.UpdateAsync(id, moto);
-            return _mapper.Map<MotoResponseDto>(moto);
-        }
-
 
         public async Task DeleteAsync(string id)
         {
