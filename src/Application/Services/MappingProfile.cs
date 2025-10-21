@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Domain.Entity;
+using Domain.ValueObject;
 using AutoMapper;
 
 namespace Application.Services
@@ -9,8 +10,12 @@ namespace Application.Services
     {
         public MappingProfile()
         {
-            CreateMap<Moto, MotoResponseDto>();
-            CreateMap<MotoRequestDto, Moto>();
+            CreateMap<Moto, MotoResponseDto>()
+                .ForMember(dest => dest.Placa, opt => opt.MapFrom(src => src.Placa.Valor));
+
+            CreateMap<MotoRequestDto, Moto>()
+                .ConstructUsing(dto => Moto.Create(new Placa(dto.Placa), dto.Modelo, dto.Status, dto.UltimoSetor, dto.UltimoSlot));
+
 
             CreateMap<Patio, PatioResponseDto>();
             CreateMap<PatioRequestDto, Patio>();
