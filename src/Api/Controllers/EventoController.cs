@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 [Route("api/[controller]")]
-[SwaggerTag("Eventos", "Gerencia os eventos gerados no sistema, como movimentações e registros de atividades.")]
+[SwaggerTag("Gerencia os eventos gerados no sistema, como movimentações e registros de atividades.")]
 public class EventoController : ControllerBase
 {
     private readonly EventoService _service;

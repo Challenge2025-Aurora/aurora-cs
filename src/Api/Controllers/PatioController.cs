@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 [Route("api/[controller]")]
-[SwaggerTag("Pátios", "Gerencia os pátios utilizados na operação da Mottu.")]
+[SwaggerTag("Gerencia os pátios utilizados na operação da Mottu.")]
 public class PatioController : ControllerBase
 {
     private readonly PatioService _service;
@@ -40,6 +40,7 @@ public class PatioController : ControllerBase
     [HttpPost]
     [SwaggerOperation(Summary = "Criar pátio", Description = "Registra um novo pátio no sistema.")]
     [ProducesResponseType(typeof(PatioResponseDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PatioResponseDto>> Create([FromBody] PatioRequestDto dto)
     {
         var created = await _service.CreateAsync(dto);

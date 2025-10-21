@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 [Route("api/[controller]")]
-[SwaggerTag("Setores", "Gerencia os setores dos pátios, onde as motos são posicionadas.")]
+[SwaggerTag("Gerencia os setores dos pátios, onde as motos são posicionadas.")]
 public class SetorController : ControllerBase
 {
     private readonly SetorService _service;
@@ -40,6 +40,7 @@ public class SetorController : ControllerBase
     [HttpPost]
     [SwaggerOperation(Summary = "Criar setor", Description = "Registra um novo setor em um pátio.")]
     [ProducesResponseType(typeof(SetorResponseDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<SetorResponseDto>> Create([FromBody] SetorRequestDto dto)
     {
         var created = await _service.CreateAsync(dto);

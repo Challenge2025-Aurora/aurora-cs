@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 [Route("api/[controller]")]
-[SwaggerTag("Motos", "Gerencia o cadastro, localização e status das motos no sistema.")]
+[SwaggerTag("Gerencia o cadastro, localização e status das motos no sistema.")]
 public class MotoController : ControllerBase
 {
     private readonly MotoService _service;

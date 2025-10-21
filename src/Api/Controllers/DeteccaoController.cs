@@ -10,7 +10,7 @@ namespace Api.Controllers
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
     [Route("api/[controller]")]
-    [SwaggerTag("Detecções", "Gerencia os registros de detecção de motos capturados por visão computacional ou sensores.")]
+    [SwaggerTag("Gerencia os registros de detecção de motos capturados por visão computacional ou sensores.")]
     public class DeteccaoController : ControllerBase
     {
         private readonly DeteccaoService _service;
