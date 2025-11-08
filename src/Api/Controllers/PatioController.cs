@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,6 +38,7 @@ public class PatioController : ControllerBase
         return result is null ? NotFound() : Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     [SwaggerOperation(Summary = "Criar pátio", Description = "Registra um novo pátio no sistema.")]
     [ProducesResponseType(typeof(PatioResponseDto), StatusCodes.Status201Created)]
@@ -47,6 +49,7 @@ public class PatioController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     [SwaggerOperation(Summary = "Atualizar pátio", Description = "Atualiza as informações de um pátio.")]
     [ProducesResponseType(typeof(PatioResponseDto), StatusCodes.Status200OK)]
@@ -57,6 +60,7 @@ public class PatioController : ControllerBase
         return updated is null ? NotFound() : Ok(updated);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     [SwaggerOperation(Summary = "Deletar pátio", Description = "Remove um pátio do sistema.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

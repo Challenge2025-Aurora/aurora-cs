@@ -1,6 +1,7 @@
 using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -42,6 +43,7 @@ namespace Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         [SwaggerOperation(Summary = "Criar detecção", Description = "Registra uma nova detecção no sistema.")]
         [ProducesResponseType(typeof(DeteccaoResponseDto), StatusCodes.Status201Created)]
@@ -59,6 +61,7 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Atualizar detecção", Description = "Atualiza os dados de uma detecção existente.")]
         [ProducesResponseType(typeof(DeteccaoResponseDto), StatusCodes.Status200OK)]
@@ -80,6 +83,7 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Deletar detecção", Description = "Remove uma detecção do sistema.")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

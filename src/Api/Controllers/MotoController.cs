@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,6 +38,7 @@ public class MotoController : ControllerBase
         return result is null ? NotFound() : Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     [SwaggerOperation(Summary = "Criar moto", Description = "Cria uma nova moto no sistema.")]
     [ProducesResponseType(typeof(MotoResponseDto), StatusCodes.Status201Created)]
@@ -47,6 +49,7 @@ public class MotoController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     [SwaggerOperation(Summary = "Atualizar moto", Description = "Atualiza os dados de uma moto existente.")]
     [ProducesResponseType(typeof(MotoResponseDto), StatusCodes.Status200OK)]
@@ -57,6 +60,7 @@ public class MotoController : ControllerBase
         return updated is null ? NotFound() : Ok(updated);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     [SwaggerOperation(Summary = "Deletar moto", Description = "Remove uma moto do sistema pelo ID.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

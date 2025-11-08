@@ -1,17 +1,22 @@
 using Application.Services;
 using AutoMapper;
+using Domain.Repositories;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Infrastructure.Context;
+using Infrastructure.Mongo;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
-using Domain.Repositories;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
-using Infrastructure.Mongo;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +46,21 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 builder.Services.AddSwaggerGen(o => { o.EnableAnnotations(); });
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://securetoken.google.com/auroraapp-85303";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = "https://securetoken.google.com/auroraapp-85303",
+            ValidateAudience = true,
+            ValidAudience = "auroraapp-85303",
+            ValidateLifetime = true
+        };
+    });
+
 
 var mongoConnectionString = builder.Configuration.GetConnectionString("MongoDB");
 builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(mongoConnectionString));
@@ -77,6 +97,7 @@ app.UseSwaggerUI(options =>
 
 app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

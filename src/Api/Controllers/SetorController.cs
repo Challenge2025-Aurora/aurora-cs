@@ -1,6 +1,7 @@
 using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,6 +38,7 @@ public class SetorController : ControllerBase
         return result is null ? NotFound() : Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     [SwaggerOperation(Summary = "Criar setor", Description = "Registra um novo setor em um pátio.")]
     [ProducesResponseType(typeof(SetorResponseDto), StatusCodes.Status201Created)]
@@ -47,6 +49,7 @@ public class SetorController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     [SwaggerOperation(Summary = "Atualizar setor", Description = "Atualiza as informações de um setor.")]
     [ProducesResponseType(typeof(SetorResponseDto), StatusCodes.Status200OK)]
@@ -57,6 +60,7 @@ public class SetorController : ControllerBase
         return updated is null ? NotFound() : Ok(updated);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     [SwaggerOperation(Summary = "Deletar setor", Description = "Remove um setor do sistema.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -1,6 +1,7 @@
 using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,6 +38,7 @@ public class EventoController : ControllerBase
         return result is null ? NotFound() : Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     [SwaggerOperation(Summary = "Criar evento", Description = "Registra um novo evento no sistema.")]
     [ProducesResponseType(typeof(EventoResponseDto), StatusCodes.Status201Created)]
@@ -46,6 +48,7 @@ public class EventoController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     [SwaggerOperation(Summary = "Atualizar evento", Description = "Atualiza os dados de um evento existente.")]
     [ProducesResponseType(typeof(EventoResponseDto), StatusCodes.Status200OK)]
@@ -56,6 +59,7 @@ public class EventoController : ControllerBase
         return updated is null ? NotFound() : Ok(updated);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     [SwaggerOperation(Summary = "Deletar evento", Description = "Remove um evento do sistema.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
