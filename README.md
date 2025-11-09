@@ -131,6 +131,24 @@ Dentro do Swagger, clique em Authorize e insira o token JWT no formato:
 
 `Bearer {seu_token}`
 
+Você pode gerar esse token dentro do próprio swagger ou acessando `POST /api/auth/login
+` e enviando um corpo JSON assim:
+
+```bash
+{
+  "userId": "user-teste"
+}
+```
+
+O valor de userId pode ser qualquer string — ele serve apenas como identificador simbólico para gerar o token.
+
+Copie o token e, no Swagger, clique em Authorize (ícone de cadeado no topo).
+Cole no formato:
+
+```bash
+Bearer [token]
+```
+
 ---
 
 ### 6. Verificar o Health Check
