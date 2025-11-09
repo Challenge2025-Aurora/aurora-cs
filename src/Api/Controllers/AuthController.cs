@@ -12,10 +12,19 @@ public class AuthController : ControllerBase
         _jwtService = jwtService;
     }
 
+    /// <summary>
+    /// Gera um token JWT de teste para autenticação no Swagger.
+    /// </summary>
+    /// <param name="request">Objeto contendo o userId.</param>
     [HttpPost("login")]
-    public IActionResult Login([FromBody] string userId)
+    public IActionResult Login([FromBody] LoginRequest request)
     {
-        var token = _jwtService.GenerateToken(userId);
+        if (string.IsNullOrWhiteSpace(request.UserId))
+            return BadRequest(new { message = "UserId é obrigatório." });
+
+        var token = _jwtService.GenerateToken(request.UserId);
         return Ok(new { token });
     }
+
+    public record LoginRequest(string UserId);
 }
